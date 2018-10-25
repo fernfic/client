@@ -8,6 +8,7 @@ $client = new nusoap_client("https://testselect.herokuapp.com/server.php?wsdl");
 $data = array('room' => '01', 'time' => '12-09-2016 05:00', 'temp' => 22.5, 'humidity' => 10.12);
 $kerry1 = array('name' => 'fern', 'addr' => '123', 'weight' => '22.5');
 $kerry2 = array('name' => 'pee', 'addr' => '345', 'weight' => '50');
+
 // $result = $client->call("send_kerry", array("data" => $kerry2));
 // $result = $client->call("update_kerry", array("data" => $kerry2));
 $result = $client->call("get_kerry", array("name" => "fern"));
