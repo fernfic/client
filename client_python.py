@@ -1,21 +1,43 @@
-from zeep import Client
-from dicttoxml import dicttoxml
+from zeep import Client, helpers
 
 wsdl = "https://testselect.herokuapp.com/server.php?wsdl"
-# wsdl = "https://testselect-wolfbit.c9users.io/server.php?wsdl"
 soap_client = Client(wsdl)
-a = {'room' : '05', 'time' : '12-09-2016 05:00', 'temp' : '22.5', 'humidity' : '10.12'}
-kerry1 = {'name' : 'fern', 'addr' : '123', 'weight' : '22.5'}
-kerry2 = {'name' : 'pee', 'addr' : '345', 'weight' : '50'}
 
-# test = soap_client.service.set_data(a)
+class Pretest():
+	def get_air(self):
+		test = soap_client.service.get_data('1')
+		print(test)
+	def set_air(self, room, time, temp, humidity):
+		data = {'room' : room, 'time' : time, 'temp' : temp, 'humidity' : humidity}
+		test = soap_client.service.set_data(data)
+		print(test)
 
-# test = soap_client.service.get_user('01')
+class Test1():
+	def get_user(self):
+		test = soap_client.service.get_user('1')
+		print(test)
 
-# test = soap_client.service.send_kerry(kerry)
-# test = soap_client.service.update_kerry(kerry2)
-test = soap_client.service.get_kerry('1')
-print(test)
+class Test2():
+	def set_kerry(self, name, addr, weight):
+		kerry = {'name' : name, 'addr' : addr, 'weight' : weight}
+		test = soap_client.service.send_kerry(kerry)
+		print(test)		
+	def update_kerry(self, name, id):
+		kerry = {'name' : name, 'id' : id}
+		test = soap_client.service.update_kerry(kerry)
+		print(test)	
+	def get_kerry(self):
+		test = soap_client.service.get_kerry('01')
+		print(test)	
 
-xml = dicttoxml(test, custom_root='user_data', attr_type=False)
-print(xml)
+a = Pretest()
+# a.get_air()
+# a.set_air('08','12-09-2016 05:00','18','56')
+
+b = Test1()
+# b.get_user()
+
+c = Test2()
+# c.set_kerry('Pee', '111', '23')
+# c.update_kerry('Nut', '1')
+# c.get_kerry()
